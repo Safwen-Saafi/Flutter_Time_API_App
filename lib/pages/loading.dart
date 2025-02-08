@@ -10,13 +10,18 @@ class _LoadingState extends State<Loading> {
   String time = 'loading';
 
   void setupWorldTime() async {
-    WorldTime instance =
-        WorldTime(location: 'Berlin', flag: 'germany.png', url: 'Africa/Tunis');
-    await instance.getTime();
-    print(instance.time);
-    setState(() {
-      time = instance.time;
-    });
+    try {
+      WorldTime instance = WorldTime(
+          location: 'Berlin', flag: 'germany.png', url: 'Africa/Cairo');
+      await instance.getTime();
+      Navigator.pushReplacementNamed(context, '/home', arguments: {
+        'location': instance.location,
+        'flag': instance.flag,
+        'time': instance.time
+      });
+    } catch (e) {
+      print('Error fetching time: $e');
+    }
   }
 
   @override
@@ -30,7 +35,7 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(50.0),
-        child: Text(time),
+        child: Text('loading'),
       ),
     );
   }
