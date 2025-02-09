@@ -15,12 +15,6 @@ class _LoadingState extends State<Loading> {
     try {
       WorldTime instance = WorldTime( location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');
       await instance.getTime();
-        print('Data being passed back to home: ${{
-    'location': instance.location,
-    'time': instance.time,
-    'flag': instance.flag,
-    'isDaytime': instance.isDaytime,
-  }}');
       Navigator.pushReplacementNamed(context, '/home', arguments: {
         'location': instance.location,
         'flag': instance.flag,
@@ -44,9 +38,10 @@ class _LoadingState extends State<Loading> {
       backgroundColor: Colors.blue[900],
       body: Center(
           child: SpinKitFadingCube(
-        color: Colors.white,
-        size: 50.0,
-      ),),
+            color: Colors.white,
+            size: 50.0,
+            ),
+          ),
     );
   }
 }

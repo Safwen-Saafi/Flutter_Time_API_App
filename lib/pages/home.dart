@@ -12,41 +12,30 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    data = data.isNotEmpty
-        ? data
-        : ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
-            {};
-
-    print('Data received in Home: $data');
-    String bgImage = (data['isDaytime'] ?? false) ? 'day.jpg' : 'night.jpg';
-    Color bgColor = (data['isDaytime'] ?? false)
-        ? Colors.blue
-        : (Colors.indigo[700] ?? Colors.indigo);
-
-    Color textColor =
-        (data['isDaytime'] ?? false) ? Colors.black : Colors.white;
-
+    data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ?? {};
+    String? bgImage = data['isDaytime'] ? 'day.jpg' : 'night.jpg';
+    Color? bgColor = data['isDaytime'] ? Colors.blue : Colors.indigo[700];
+    Color textColor = data['isDaytime'] ? Colors.black : Colors.white;
     String location = data['location'] ?? 'Unknown Location';
     String time = data['time'] ?? '0:00 AM';
 
-    print(data);
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage(bgImage),
-            fit: BoxFit.cover,
-          )),
+                image: AssetImage(bgImage),
+                fit: BoxFit.cover,
+                )
+              ),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 120.0, 0, 0),
             child: Column(
               children: <Widget>[
                 TextButton.icon(
                   onPressed: () async {
-                    dynamic result =
-                        await Navigator.pushNamed(context, '/location');
+                    dynamic result = await Navigator.pushNamed(context, '/location');
                     if (result != null) {
                       setState(() {
                         data = result; // Update state with the new data

@@ -19,17 +19,12 @@ class _ChooseLocationState extends State<ChooseLocation> {
     WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
     WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
     WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+    WorldTime(url: 'Europe/Berlin', location: 'Berlin', flag: 'germany.png'),
   ];
 
 void updateTime(index) async {
   WorldTime instance = locations[index];
   await instance.getTime();
-  print('Data being passed back: ${{
-    'location': instance.location,
-    'time': instance.time,
-    'flag': instance.flag,
-    'isDaytime': instance.isDaytime,
-  }}');
   Navigator.pop(context, {
     'location': instance.location,
     'time': instance.time,
